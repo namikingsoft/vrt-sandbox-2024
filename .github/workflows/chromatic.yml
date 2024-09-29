@@ -1,0 +1,20 @@
+name: "Chromatic"
+
+on: push
+
+jobs:
+  chromatic:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - run: echo "node=$(cat .node-version)" >> $GITHUB_OUTPUT
+        id: get-version
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ steps.get-version.outputs.node }}
+      - run: npm ci
+      - uses: chromaui/action@latest
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
