@@ -1,0 +1,27 @@
+name: VRT
+
+on:
+  pull_request:
+    types:
+      - opened
+      - synchronize
+      - reopened
+
+jobs:
+  vrt:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: echo "node=$(cat .node-version)" >> $GITHUB_OUTPUT
+        id: get-version
+      - uses: actions/setup-node@v4
+        with:
+          node-version: ${{ steps.get-version.outputs.node }}
+      - run: npm ci
+      - run: npm run vrt
+      - run: |
+          git config user.name  "GitHub Action"
+          git config user.email "action@github.com"
+          git add test
+          git commit -m "Update screenshots [ci skip]"
+          git push
