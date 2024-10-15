@@ -21,7 +21,7 @@ const Implementation = () => {
   return (
     <div>
       {query.data.map((item) => (
-        <div key={item.id} className="font-bold">
+        <div key={item.id} className="font-thin">
           {item.name}
         </div>
       ))}
