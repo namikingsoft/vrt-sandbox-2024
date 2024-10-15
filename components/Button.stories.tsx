@@ -9,6 +9,9 @@ const meta = {
     onClick: fn(),
     children: <>Button</>,
   },
+  parameters: {
+    chromatic: { disableSnapshot: false },
+  },
 } satisfies Meta<typeof Button>;
 
 type Story = StoryObj<typeof meta>;
