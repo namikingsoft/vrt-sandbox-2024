@@ -3,6 +3,9 @@ import { ItemList } from "./ItemList";
 
 const meta = {
   component: ItemList,
+  parameters: {
+    chromatic: { disableSnapshot: false },
+  },
 } satisfies Meta<typeof ItemList>;
 
 type Story = StoryObj<typeof meta>;

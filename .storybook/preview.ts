@@ -21,6 +21,7 @@ const preview: Preview = {
     msw: {
       handlers,
     },
+    chromatic: { disableSnapshot: true },
   },
   loaders: [mswLoader],
 };
