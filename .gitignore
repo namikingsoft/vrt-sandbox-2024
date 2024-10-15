@@ -41,3 +41,4 @@ storybook-static
 
 # Playwright
 test-results
+vrt.e2e.ts-snapshots
