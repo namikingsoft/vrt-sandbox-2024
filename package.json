@@ -11,8 +11,8 @@
     "build-storybook": "storybook build",
     "start-storybook": "npx -y http-server storybook-static --silent",
     "prestart-storybook": "storybook build",
-    "vrt": "npx -y start-server-and-test start-storybook http://localhost:8080 'playwright test -g vrt -u'",
-    "prevrt": "playwright install --with-deps && rm -rf test/vrt.e2e.ts-snapshots",
+    "snapshot": "npx -y start-server-and-test start-storybook http://localhost:8080 'playwright test -g vrt -u'",
+    "presnapshot": "playwright install --with-deps && rm -rf test/vrt.e2e.ts-snapshots",
     "chromatic": "npx -y chromatic --exit-zero-on-changes --only-changed"
   },
   "dependencies": {
