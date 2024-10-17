@@ -86,7 +86,7 @@ jobs:
               repo: context.repo.repo,
               sha: '${{ github.event.pull_request.head.sha }}',
               state: 'success',
-              context: isUpdated ? 'VRT / Updated 👀' : 'VRT / No Change ✅',
+              context: isUpdated ? 'VRT / Updated ❗' : 'VRT / No Change ✅',
               target_url: '${{ steps.results.outputs.changed_snapshots_url }}',
               description: !isUpdated ? undefined : 'status: ' +
                 'M'.repeat(${{ steps.results.outputs.changed_count }}) +
