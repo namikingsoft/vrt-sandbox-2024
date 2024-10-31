@@ -21,7 +21,7 @@ const colorClasses = (color: Props["color"]) => {
 export const Button = ({ color, onClick, children }: Props) => {
   return (
     <button
-      className={clsx(colorClasses(color), "rounded", "p-4")}
+      className={clsx(colorClasses(color), "rounded", "p-6")}
       onClick={onClick}
     >
       {children}
