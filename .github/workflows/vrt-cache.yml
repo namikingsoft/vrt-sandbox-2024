@@ -1,0 +1,17 @@
+name: VRT cache
+
+on:
+  push:
+    branches:
+      - main
+      - master
+
+jobs:
+  cache:
+    uses: namikingsoft/vrt-diff-2024/.github/workflows/cache.yml@main
+    with:
+      snapshots_command: npm run snapshot
+      snapshots_dirpath: test/vrt.e2e.ts-snapshots
+    secrets:
+      your_repo_github_token: ${{ secrets.GITHUB_TOKEN }}
+      vrt_repo_github_token: ${{ secrets.VRT_DIFF_GITHUB_TOKEN }}
