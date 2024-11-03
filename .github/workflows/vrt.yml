@@ -13,8 +13,9 @@ on:
 
 jobs:
   vrt:
-    uses: namikingsoft/vrt-diff-2024/.github/workflows/snapshots.yml@main
+    uses: namikingsoft/vrt-workflows-2024/.github/workflows/snapshots.yml@main
     with:
+      vrt_repo: namikingsoft/vrt-workflows-2024
       snapshots_command: npm run snapshot
       snapshots_dirpath: test/vrt.e2e.ts-snapshots
     secrets:
