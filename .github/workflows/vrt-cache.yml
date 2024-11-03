@@ -12,8 +12,6 @@ jobs:
     with:
       snapshots_command: npm run snapshot
       snapshots_dirpath: test/vrt.e2e.ts-snapshots
-      base_sha: ${{ github.sha}}
-      only_base_for_cache: true
     secrets:
       your_repo_github_token: ${{ secrets.GITHUB_TOKEN }}
       vrt_repo_github_token: ${{ secrets.VRT_DIFF_GITHUB_TOKEN }}
