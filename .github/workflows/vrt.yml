@@ -5,9 +5,14 @@ on:
     types:
       - opened
       - synchronize
+  # for cache
+  push:
+    branches:
+      - main
+      - master
 
 jobs:
-  diff:
+  vrt:
     uses: namikingsoft/vrt-diff-2024/.github/workflows/snapshots.yml@main
     with:
       snapshots_command: npm run snapshot
