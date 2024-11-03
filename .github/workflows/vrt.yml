@@ -7,8 +7,8 @@ on:
       - synchronize
 
 jobs:
-  vrt:
-    uses: namikingsoft/vrt-diff-2024/.github/workflows/diff.yml@main
+  diff:
+    uses: namikingsoft/vrt-diff-2024/.github/workflows/snapshots.yml@main
     with:
       snapshots_command: npm run snapshot
       snapshots_dirpath: test/vrt.e2e.ts-snapshots
