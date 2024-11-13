@@ -12,10 +12,22 @@ on:
       - master
 
 jobs:
+  init:
+    runs-on: ubuntu-latest
+    outputs:
+      node_version: ${{ steps.vars.outputs.node_version }}
+    steps:
+      - name: Set version
+        id: vars
+        run: echo "node_version=$(cat .node-version)" >> $GITHUB_OUTPUT
+
   vrt:
+    needs: init
     uses: namikingsoft/vrt-workflows-2024/.github/workflows/snapshots.yml@main
     with:
       vrt_repo: namikingsoft/vrt-workflows-2024
+      node_version: ${{ needs.init.outputs.node_version }}
+      package_manager: npm
       snapshots_command: npm run snapshot
       snapshots_dirpath: test/vrt.e2e.ts-snapshots
     secrets:
