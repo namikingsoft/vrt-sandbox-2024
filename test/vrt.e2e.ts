@@ -18,7 +18,18 @@ test.describe.parallel("visual regression testing", () => {
       await page.goto(`http://localhost:8080/iframe.html?id=${story.id}`, {
         waitUntil: "networkidle",
       });
-      await expect(page).toHaveScreenshot([story.title, `${story.id}.png`]);
+
+      const snapshotNames = [story.title, `${story.id}.png`];
+      await expect(page).toHaveScreenshot(snapshotNames);
+
+      // Currently, Playwright does not have a snapshot cleanup feature,
+      // so we touch the test target snapshots to detect snapshots that need to be deleted
+      const now = new Date();
+      await fs.promises.utimes(
+        test.info().snapshotPath(...snapshotNames),
+        now,
+        now
+      );
     });
   });
 });
