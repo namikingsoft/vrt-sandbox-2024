@@ -9,10 +9,9 @@
     "lint": "next lint",
     "storybook": "storybook dev -p 6007",
     "build-storybook": "storybook build",
-    "start-storybook": "npx -y http-server storybook-static --silent --port 8080",
-    "prestart-storybook": "storybook build",
-    "snapshot": "npx -y start-server-and-test start-storybook 8080 'playwright test -g vrt -u'",
-    "presnapshot": "playwright install --with-deps && rm -rf test/vrt.e2e.ts-snapshots",
+    "start-storybook-vrt": "npx -y http-server storybook-static --silent --port 8080",
+    "prestart-storybook-vrt": "STORYBOOK_VRT=1 storybook build --disable-telemetry --quiet --test",
+    "snapshot": "playwright test --grep vrt --update-snapshots",
     "chromatic": "npx -y chromatic --exit-zero-on-changes --only-changed"
   },
   "dependencies": {
