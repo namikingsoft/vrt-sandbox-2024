@@ -12,12 +12,8 @@ on:
       - master
 
 jobs:
-  init:
+  vrt:
     runs-on: ubuntu-latest
-    outputs:
-      node_version: ${{ steps.vars.outputs.node_version }}
-      cache_key: ${{ steps.vars.outputs.cache_key }}
-      playwright_version: ${{ steps.vars.outputs.playwright_version }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -27,21 +23,16 @@ jobs:
           echo "node_version=$(cat .node-version)" >> $GITHUB_OUTPUT
           echo "cache_key=${{ hashFiles('package-lock.json') }}" >> $GITHUB_OUTPUT
           echo "playwright_version=$(cat package-lock.json | grep -m1 -E 'playwright.*"[0-9]+\.[0-9]+\.[0-9]+"' | sed -E 's|.*([0-9]+\.[0-9]+\.[0-9]+).*|\1|')" >> $GITHUB_OUTPUT
-
-  vrt:
-    needs: init
-    uses: namikingsoft/vrt-workflows-2024/.github/workflows/snapshots.yml@main
-    with:
-      vrt_repo: namikingsoft/vrt-workflows-2024
-      node_version: ${{ needs.init.outputs.node_version }}
-      playwright_image_tag: v${{ needs.init.outputs.playwright_version }}
-      install_command: npm ci
-      snapshots_command: npm run snapshot --
-      snapshots_dirpath: test/vrt.e2e.ts-snapshots
-      shard_count: 2
-      cache_key: vrt-${{ needs.init.outputs.cache_key }}
-      cache_paths: node_modules
-      force_update_base_snapshots: false
-    secrets:
-      your_repo_github_token: ${{ secrets.GITHUB_TOKEN }}
-      vrt_repo_github_token: ${{ secrets.VRT_DIFF_GITHUB_TOKEN }}
+      - name: Run visual regression test
+        uses: namikingsoft/vrt-workflows-2024@workflow-dispatch-using-github-app
+        with:
+          node_version: ${{ steps.vars.outputs.node_version }}
+          playwright_image_tag: v${{ steps.vars.outputs.playwright_version }}
+          snapshots_command: npm run snapshot --
+          snapshots_dirpath: test/vrt.e2e.ts-snapshots
+          shard_count: 2
+          force_update_base_snapshots: false
+          vrt_repo: namikingsoft/vrt-workflows-2024
+          your_repo_github_token: ${{ secrets.GITHUB_TOKEN }}
+          vrt_github_app_id: ${{ secrets.VRT_GITHUB_APP_ID }}
+          vrt_github_app_private_key: ${{ secrets.VRT_GITHUB_APP_PRIVATE_KEY }}
