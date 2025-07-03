@@ -23,7 +23,7 @@ jobs:
           echo "node_version=$(cat .node-version)" >> $GITHUB_OUTPUT
           echo "playwright_version=$(cat package-lock.json | grep -m1 -E 'playwright.*"[0-9]+\.[0-9]+\.[0-9]+"' | sed -E 's|.*([0-9]+\.[0-9]+\.[0-9]+).*|\1|')" >> $GITHUB_OUTPUT
       - name: Run visual regression test
-        uses: namikingsoft/vrt-workflows-2024@main
+        uses: namikingsoft/vrt-workflows-2024@update-20250703
         with:
           node_version: ${{ steps.vars.outputs.node_version }}
           playwright_image_tag: v${{ steps.vars.outputs.playwright_version }}
@@ -32,6 +32,7 @@ jobs:
           shard_count: 2
           force_update_base_snapshots: false
           vrt_repo: namikingsoft/vrt-workflows-2024
+          vrt_repo_ref: update-20250703
           your_repo_github_token: ${{ secrets.GITHUB_TOKEN }}
           vrt_github_app_id: ${{ secrets.VRT_GITHUB_APP_ID }}
           vrt_github_app_private_key: ${{ secrets.VRT_GITHUB_APP_PRIVATE_KEY }}
