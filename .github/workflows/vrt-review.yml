@@ -1,0 +1,23 @@
+name: VRT Review
+
+on:
+  workflow_run:
+    workflows: [VRT]
+    types:
+      - completed
+
+jobs:
+  review:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Review visual regression test
+        if: github.event.workflow_run.pull_requests[0].number != null
+        uses: namikingsoft/vrt-workflows-2024/actions/review@main
+        with:
+          vrt_repo: namikingsoft/vrt-workflows-2024
+          vrt_github_app_id: ${{ secrets.VRT_GITHUB_APP_ID }}
+          vrt_github_app_private_key: ${{ secrets.VRT_GITHUB_APP_PRIVATE_KEY }}
+          your_repo_github_token: ${{ secrets.GITHUB_TOKEN }}
+          your_repo_pull_request_number: ${{ github.event.workflow_run.pull_requests[0].number }}
+          anthropic_api_key: ${{ secrets.ANTHROPIC_API_KEY }}
+          additional_prompt: 日本語でお願いします。
